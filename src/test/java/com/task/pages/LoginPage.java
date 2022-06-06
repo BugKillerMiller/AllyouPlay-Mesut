@@ -1,5 +1,7 @@
 package com.task.pages;
 
+import com.task.utilities.BrowserUtils;
+import com.task.utilities.ConfigurationReader;
 import com.task.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,26 +14,38 @@ public class LoginPage {
         PageFactory.initElements(Driver.get(), this);
     }
 
-    @FindBy(id="prependedInput")
-    public WebElement userName;
+    @FindBy(css = "#Email")
+    public WebElement Email;
 
-
-
-    @FindBy(id="prependedInput2")
+    @FindBy(css = "#Password")
     public WebElement password;
 
-    @FindBy(name = "_submit")
-    public WebElement submit;
+    @FindBy(xpath = "//button[contains(@class,'btn btn-primary')]")
+    public WebElement signIn;
 
-    @FindBy(css="div[class$='alert-error']")
-    public WebElement PopUp;
+    @FindBy(xpath = "//button[@id='eu-cookie-ok']")
+    public WebElement popUp;
+
+    @FindBy(xpath = "//a[contains(@class,'soundest-form-without-image-close')]")
+    public WebElement offerPopUp;
+
+    @FindBy(xpath = "//span[contains(normalize-space(),'Oh')]")
+    public WebElement ohNo;
+
+    @FindBy(xpath = "//li[contains(normalize-space(),'Watch')]")
+    public WebElement wrongPass;
+
+    @FindBy(xpath = "//li[contains(normalize-space(),'No customer')]")
+    public WebElement wrongEmail;
 
 
+    public void login(String userNameStr, String passwordStr) throws InterruptedException {
 
-    public void login(String userNameStr, String passwordStr) {
-        userName.sendKeys(userNameStr);
+
+        BrowserUtils.waitFor(1);
+        Email.sendKeys(userNameStr);
         password.sendKeys(passwordStr);
-        submit.click();
-        // verification that we logged
+        signIn.click();
+
     }
 }
